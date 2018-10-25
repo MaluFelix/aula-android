@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ItensHome"
+            android:label="@string/title_activity_itens_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ConfiguracoesActivity"
+            android:label="@string/title_activity_configuracoes"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AtualizarActivity"
+            android:label="@string/title_activity_atualizar"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">sevenestoque</string>
+    <string name="app_name">Seven - Controle de Estoque</string>
+    <string name="bemVindo">Bem vindo!</string>
+    <string name="usuario">Usuário</string>
+    <string name="senha">Senha</string>
+    <string name="btnLogin">Login</string>
+    <string name="title_activity_home">Home</string>
+    <string name="btnProdutos">Produtos</string>
+    <string name="btnEstoque">Estoque</string>
+    <string name="btnClientes">Clientes</string>
+    <string name="title_activity_itens_home">Itens</string>
+    <string name="title_activity_configuracoes">Configuraçoes</string>
+    <string name="title_activity_atualizar">Atualizar</string>
+    <string name="btnAtualizar">Atualizar</string>
 </resources>
