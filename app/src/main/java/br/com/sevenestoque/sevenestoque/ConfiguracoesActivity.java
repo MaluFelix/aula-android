@@ -2,14 +2,11 @@ package br.com.sevenestoque.sevenestoque;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 public class ConfiguracoesActivity extends AppCompatActivity {
 
@@ -43,7 +40,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
 //                finish();
                 return true;
             case R.id.itemTSair:
-                intent = new Intent(getBaseContext(),MainActivity.class);
+                intent = new Intent(getBaseContext(),LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
