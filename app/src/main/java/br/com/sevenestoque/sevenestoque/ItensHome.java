@@ -2,18 +2,23 @@ package br.com.sevenestoque.sevenestoque;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-public class ItensHome extends AppCompatActivity {
+public class ItensHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,17 @@ public class ItensHome extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(value);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.addDrawerListener(toggle);
+
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.navView);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -53,13 +69,76 @@ public class ItensHome extends AppCompatActivity {
 //                finish();
                 return true;
             case R.id.itemTSair:
-                intent = new Intent(getBaseContext(),MainActivity.class);
+                intent = new Intent(getBaseContext(),LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.navHome:
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                intent.putExtra("nomeBotao","Estoque");
+                startActivity(intent);
+                finish();
+                break;
+
+            case R.id.navEstoque: {
+                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                it.putExtra("nomeBotao","Estoque");
+                startActivity(it);
+                finish();
+                break;
+            }
+            case R.id.navPedidoVenda: {
+                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                it.putExtra("nomeBotao","Pedido de Venda");
+                startActivity(it);
+                finish();
+                break;
+            }
+            case R.id.navProdutos: {
+                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                it.putExtra("nomeBotao","Produtos");
+                startActivity(it);
+                finish();
+                break;
+            }
+            case R.id.navClientes: {
+                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                it.putExtra("nomeBotao","Clientes");
+                startActivity(it);
+                finish();
+                break;
+            }
+            case R.id.navSair: {
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
+                break;
+            }
+            default: {
+                Toast.makeText(this, "Menu Default", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
