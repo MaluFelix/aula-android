@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btnClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                Intent it = new Intent(getBaseContext(), ClientesActivity.class);
                 it.putExtra("nomeBotao","Clientes");
                 startActivity(it);
                 finish();
@@ -101,8 +101,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 return true;
             case R.id.itemTConfiguracoes:
-                intent = new Intent(getBaseContext(),ConfiguracoesActivity.class);
-                startActivity(intent);
+                intent = new Intent(getBaseContext(),ItensHome.class);
+                intent.putExtra("nomeBotao","Configuracoes");
                 finish();
                 return true;
             case R.id.itemTSair:

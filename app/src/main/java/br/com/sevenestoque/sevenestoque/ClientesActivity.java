@@ -8,19 +8,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import static br.com.sevenestoque.sevenestoque.ListaCliente.listacliente;
 
-public class AtualizarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ClientesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -29,7 +30,16 @@ public class AtualizarActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atualizar);
+        setContentView(R.layout.activity_clientes);
+        Bundle extra = getIntent().getExtras();
+        String value = "";
+        if(extra != null){
+            value = extra.getString("nomeBotao");
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(value);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,34 +53,31 @@ public class AtualizarActivity extends AppCompatActivity implements NavigationVi
         navigationView = (NavigationView) findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //recupera o Button e o ProgressBar do XML
-        Button btnAtualizar = (Button) findViewById(R.id.btnAtualizar);
-        final ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progBarAtualizar);
-
-        //Evento de click do botão
-        btnAtualizar.setOnClickListener(new View.OnClickListener() {
+        Button btnAddCliente = (Button) findViewById(R.id.btnAddCliente);
+        btnAddCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Quando clica no botão torna visível o ProgressBar
-                mProgressBar.setVisibility(View.VISIBLE);
-
-
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Depois que passa os 10s "esconde" o ProgressBar
-                                mProgressBar.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                }, 10000);//milisegundos
+                Intent it = new Intent(getBaseContext(), CadastroClienteActivity.class);
+                it.putExtra("nomeBotao","Cadastro de Cliente");
+                startActivity(it);
+                finish();
             }
         });
+
+        carregar();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
+        RecyclerView rcvClientes = (RecyclerView) findViewById(R.id.rcvClientes);
+        rcvClientes.setLayoutManager(layoutManager);
+        rcvClientes.setAdapter(new ClienteAdapter(listacliente));
+
+    }
+
+    public void carregar(){
+        listacliente.add(new Cliente("12345678900", "Maria Luiza", "911112222","maria@gmail.com"));
+        listacliente.add(new Cliente("11122233344", "Rita de Cassia", "933334444","rita@gmail.com"));
+        listacliente.add(new Cliente("55566677788", "José Felix", "955556666","jose@gmail.com"));
+
     }
 
     @Override
@@ -85,14 +92,13 @@ public class AtualizarActivity extends AppCompatActivity implements NavigationVi
         Intent intent;
         switch (item.getItemId()) {
             case R.id.itemTAtualizar:
-                intent = new Intent(getBaseContext(), AtualizarActivity.class);
+                intent = new Intent(getBaseContext(),AtualizarActivity.class);
                 startActivity(intent);
 //                finish();
                 return true;
             case R.id.itemTConfiguracoes:
                 intent = new Intent(getBaseContext(),ItensHome.class);
                 intent.putExtra("nomeBotao","Configuracoes");
-                startActivity(intent);
 //                finish();
                 return true;
             case R.id.itemTSair:

@@ -64,8 +64,8 @@ public class ItensHome extends AppCompatActivity implements NavigationView.OnNav
 //                finish();
                 return true;
             case R.id.itemTConfiguracoes:
-                intent = new Intent(getBaseContext(),ConfiguracoesActivity.class);
-                startActivity(intent);
+                intent = new Intent(getBaseContext(),ItensHome.class);
+                intent.putExtra("nomeBotao","Configuracoes");
 //                finish();
                 return true;
             case R.id.itemTSair:
@@ -85,7 +85,6 @@ public class ItensHome extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
             case R.id.navHome:
                 Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-                intent.putExtra("nomeBotao","Estoque");
                 startActivity(intent);
                 finish();
                 break;

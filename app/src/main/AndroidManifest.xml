@@ -31,7 +31,12 @@
         <activity
             android:name=".AtualizarActivity"
             android:label="@string/title_activity_atualizar"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ClientesActivity"
+            android:parentActivityName=".CadastroClienteActivity" />
+        <activity android:name=".TesteActivity" />
+        <activity android:name=".NovoClienteActivity"></activity>
     </application>
 
 </manifest>
