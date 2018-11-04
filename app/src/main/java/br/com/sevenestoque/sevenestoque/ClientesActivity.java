@@ -57,7 +57,7 @@ public class ClientesActivity extends AppCompatActivity implements NavigationVie
         btnAddCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(getBaseContext(), CadastroClienteActivity.class);
+                Intent it = new Intent(getBaseContext(), CadastroCliActivity.class);
                 it.putExtra("nomeBotao","Cadastro de Cliente");
                 startActivity(it);
                 finish();

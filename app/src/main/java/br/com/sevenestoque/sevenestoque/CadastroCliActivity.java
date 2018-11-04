@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class ConfiguracoesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CadastroCliActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -23,7 +23,12 @@ public class ConfiguracoesActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_configuracoes);
+        setContentView(R.layout.activity_cadastro_cli);
+        Bundle extra = getIntent().getExtras();
+        String value = "";
+        if(extra != null){
+            value = extra.getString("nomeBotao");
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

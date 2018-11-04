@@ -25,7 +25,7 @@
             android:label="@string/title_activity_itens_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ConfiguracoesActivity"
+            android:name=".CadastroCliActivity"
             android:label="@string/title_activity_configuracoes"
             android:theme="@style/AppTheme" />
         <activity
@@ -34,9 +34,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ClientesActivity"
-            android:parentActivityName=".CadastroClienteActivity" />
-        <activity android:name=".TesteActivity" />
-        <activity android:name=".NovoClienteActivity"></activity>
+            android:parentActivityName=".CadastroCliActivity" />
     </application>
 
 </manifest>
