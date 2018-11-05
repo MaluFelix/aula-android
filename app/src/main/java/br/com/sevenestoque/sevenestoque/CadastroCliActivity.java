@@ -12,13 +12,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CadastroCliActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
+    private Button btnSalvarCliente;
+
+    private EditText edtCpf;
+    private EditText edtNome;
+    private EditText edtContato;
+    private EditText edtEmail;
+
+    private FirebaseFirestore rFireStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +60,45 @@ public class CadastroCliActivity extends AppCompatActivity implements Navigation
 
         navigationView = (NavigationView) findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
+
+        rFireStore = FirebaseFirestore.getInstance();
+
+        btnSalvarCliente = (Button) findViewById(R.id.btnSalvarCliente);
+        edtCpf = (EditText) findViewById(R.id.edtCpf);
+        edtNome = (EditText) findViewById(R.id.edtNome);
+        edtContato = (EditText) findViewById(R.id.edtContato);
+        edtEmail = (EditText) findViewById(R.id.edtEmail);
+
+        btnSalvarCliente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String CPF = edtCpf.getText().toString();
+                String nome = edtNome.getText().toString();
+                String contato = edtContato.getText().toString();
+                String email = edtEmail.getText().toString();
+
+                Map<String,String> clienteMap = new HashMap<>();
+                clienteMap.put("CPF", CPF);
+                clienteMap.put("Nome", nome);
+                clienteMap.put("Contato", contato);
+                clienteMap.put("Email", email);
+
+                rFireStore.collection("clientes").document().set(clienteMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(CadastroCliActivity.this, "Cliente cadastrado!", Toast.LENGTH_SHORT).show();
+                        Intent it = new Intent(getBaseContext(),ClientesActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CadastroCliActivity.this, "Falha ao cadastrar!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
