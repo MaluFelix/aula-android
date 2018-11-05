@@ -3,7 +3,7 @@
     package="br.com.sevenestoque.sevenestoque">
 
     <application
-        android:name="br.com.sevenestoque.sevenestoque.LMSApplication"
+        android:name="br.com.sevenestoque.sevenestoque.SevenApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

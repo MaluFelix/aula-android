@@ -1,7 +1,7 @@
 package br.com.sevenestoque.sevenestoque
 import android.app.Application
 
-class LMSApplication: Application() {
+class SevenApplication: Application() {
     // chamado quando android iniciar o processo da aplicação
     override fun onCreate() {
         super.onCreate()
@@ -10,8 +10,8 @@ class LMSApplication: Application() {
 
     companion object {
         // singleton
-        private var appInstance: LMSApplication?  = null
-        fun getInstance(): LMSApplication {
+        private var appInstance: SevenApplication?  = null
+        fun getInstance(): SevenApplication {
             if (appInstance == null) {
                 throw IllegalStateException("Configurar application no Android Manifest")
             }
