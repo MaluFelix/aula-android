@@ -10,9 +10,12 @@
     <string name="btnVenda">Pedido de Venda</string>
     <string name="btnClientes">Clientes</string>
     <string name="title_activity_itens_home">Itens</string>
-    <string name="title_activity_configuracoes">Configuraçoes</string>
+    <string name="title_activity_configuracoes">Cadastro de Cliente</string>
     <string name="title_activity_atualizar">Atualizar</string>
     <string name="btnAtualizar">Atualizar</string>
     <string name="open_drawer">Abrir</string>
     <string name="close_drawer">Fechar</string>
+    <string name="title_activity_clientes">Clientes</string>
+    <string name="btnAddCliente">Adicionar Cliente</string>
+    <string name="btnSalvarCliente">Salvar</string>
 </resources>

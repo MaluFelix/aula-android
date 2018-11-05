@@ -27,12 +27,12 @@ tools:openDrawer="start">
             android:layout_alignParentBottom="true"
             android:layout_marginStart="42dp"
             android:layout_marginLeft="42dp"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="136dp"
             android:layout_marginEnd="36dp"
             android:layout_marginRight="36dp"
             android:text="@string/btnEstoque"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.576"
+            app:layout_constraintHorizontal_bias="0.593"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

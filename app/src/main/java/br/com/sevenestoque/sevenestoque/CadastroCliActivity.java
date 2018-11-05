@@ -14,22 +14,40 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class AtualizarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.HashMap;
+import java.util.Map;
+
+public class CadastroCliActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
+    private Button btnSalvarCliente;
+
+    private EditText edtCpf;
+    private EditText edtNome;
+    private EditText edtContato;
+    private EditText edtEmail;
+
+    private FirebaseFirestore rFireStore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atualizar);
+        setContentView(R.layout.activity_cadastro_cli);
+        Bundle extra = getIntent().getExtras();
+        String value = "";
+        if(extra != null){
+            value = extra.getString("nomeBotao");
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,32 +61,42 @@ public class AtualizarActivity extends AppCompatActivity implements NavigationVi
         navigationView = (NavigationView) findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //recupera o Button e o ProgressBar do XML
-        Button btnAtualizar = (Button) findViewById(R.id.btnAtualizar);
-        final ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progBarAtualizar);
+        rFireStore = FirebaseFirestore.getInstance();
 
-        //Evento de click do botão
-        btnAtualizar.setOnClickListener(new View.OnClickListener() {
+        btnSalvarCliente = (Button) findViewById(R.id.btnSalvarCliente);
+        edtCpf = (EditText) findViewById(R.id.edtCpf);
+        edtNome = (EditText) findViewById(R.id.edtNome);
+        edtContato = (EditText) findViewById(R.id.edtContato);
+        edtEmail = (EditText) findViewById(R.id.edtEmail);
+
+        btnSalvarCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Quando clica no botão torna visível o ProgressBar
-                mProgressBar.setVisibility(View.VISIBLE);
+                String CPF = edtCpf.getText().toString();
+                String nome = edtNome.getText().toString();
+                String contato = edtContato.getText().toString();
+                String email = edtEmail.getText().toString();
 
+                Map<String,String> clienteMap = new HashMap<>();
+                clienteMap.put("CPF", CPF);
+                clienteMap.put("Nome", nome);
+                clienteMap.put("Contato", contato);
+                clienteMap.put("Email", email);
 
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
+                rFireStore.collection("clientes").document().set(clienteMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void run() {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Depois que passa os 10s "esconde" o ProgressBar
-                                mProgressBar.setVisibility(View.GONE);
-                            }
-                        });
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(CadastroCliActivity.this, "Cliente cadastrado!", Toast.LENGTH_SHORT).show();
+                        Intent it = new Intent(getBaseContext(),ClientesActivity.class);
+                        startActivity(it);
+                        finish();
                     }
-                }, 10000);//milisegundos
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CadastroCliActivity.this, "Falha ao cadastrar!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -85,14 +113,13 @@ public class AtualizarActivity extends AppCompatActivity implements NavigationVi
         Intent intent;
         switch (item.getItemId()) {
             case R.id.itemTAtualizar:
-                intent = new Intent(getBaseContext(), AtualizarActivity.class);
+                intent = new Intent(getBaseContext(),AtualizarActivity.class);
                 startActivity(intent);
 //                finish();
                 return true;
             case R.id.itemTConfiguracoes:
                 intent = new Intent(getBaseContext(),ItensHome.class);
                 intent.putExtra("nomeBotao","Configuracoes");
-                startActivity(intent);
 //                finish();
                 return true;
             case R.id.itemTSair:
