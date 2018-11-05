@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +30,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Boolean valorLembrar = Prefs.INSTANCE.getBoolean("Lembrar");
+        String valorUsuario = Prefs.INSTANCE.getString("lembrarNome");
+        String valorSenha = Prefs.INSTANCE.getString("lembrarSenha");
 
+        TextView txtUsuario = (TextView) findViewById(R.id.txtUsuario);
+        txtUsuario.setText(valorUsuario);
 
+        TextView txtSenha = (TextView) findViewById(R.id.txtSenha);
+        txtSenha.setText(valorSenha);
+
+        CheckBox ckbButton = (CheckBox) findViewById(R.id.ckbLembrar);
+        ckbButton.setChecked(valorLembrar);
 
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +49,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 TextView txtUsuario = (TextView) findViewById(R.id.txtUsuario);
                 TextView txtSenha = (TextView) findViewById(R.id.txtSenha);
+                CheckBox valorLembrar = (CheckBox) findViewById(R.id.ckbLembrar);
+
+                String usuario = txtUsuario.getText().toString();
+                String senha = txtSenha.getText().toString();
+
+
+
+                Prefs.INSTANCE.setBoolean("Lembrar",valorLembrar.isChecked());
+                if (valorLembrar.isChecked() == true){
+                    Prefs.INSTANCE.setString("lembrarNome", usuario);
+                    Prefs.INSTANCE.setString("lembrarSenha", senha);
+                }
+                else{
+
+                    Prefs.INSTANCE.setString("lembrarNome", "");
+                    Prefs.INSTANCE.setString("lembrarSenha", "");
+                }
+
 
 //                var oi = estoqueRef.whereEqualTo("user", "aluno").get();
 //                Query query = estoqueRef.whereEqualTo("user", "aluno");
@@ -90,7 +119,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
     private void alert(String s){
         Toast.makeText(this,s,Toast.LENGTH_LONG).show();
     }
