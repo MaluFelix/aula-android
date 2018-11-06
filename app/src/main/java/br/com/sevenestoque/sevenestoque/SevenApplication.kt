@@ -20,6 +20,7 @@ class SevenApplication: Application() {
     }
 
     // chamado quando android terminar processo da aplicação
+
     override fun onTerminate() {
         super.onTerminate()
     }

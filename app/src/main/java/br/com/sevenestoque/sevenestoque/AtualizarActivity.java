@@ -138,7 +138,7 @@ public class AtualizarActivity extends AppCompatActivity implements NavigationVi
                 break;
             }
             case R.id.navClientes: {
-                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                Intent it = new Intent(getBaseContext(), ClientesActivity.class);
                 it.putExtra("nomeBotao","Clientes");
                 startActivity(it);
                 finish();

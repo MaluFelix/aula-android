@@ -165,7 +165,7 @@ public class CadastroCliActivity extends AppCompatActivity implements Navigation
                 break;
             }
             case R.id.navClientes: {
-                Intent it = new Intent(getBaseContext(), ItensHome.class);
+                Intent it = new Intent(getBaseContext(), ClientesActivity.class);
                 it.putExtra("nomeBotao","Clientes");
                 startActivity(it);
                 finish();
